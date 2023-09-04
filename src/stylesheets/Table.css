@@ -1,0 +1,18 @@
+.table-vuelos {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-vuelos th {
+  background-color: #261E5A;
+  color: white;
+}
+
+.table-vuelos th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+.table-vuelos tr:nth-child(even){
+  background-color: #e3e2e2
+}
