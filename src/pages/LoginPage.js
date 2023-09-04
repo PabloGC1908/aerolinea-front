@@ -15,11 +15,10 @@ const LoginPage = () => {
     if (rol === "ADMIN")
       navigate("/admin")
     else
-      navigate("/user")
+      navigate("/")
   }
 
   const sendLoginRequest = async () => {
-    console.log(usuario);
     try {
       const response = await fetch(url.concat("/auth/log-in"), {
         headers: {
@@ -33,6 +32,7 @@ const LoginPage = () => {
       console.log(responseData)
       setToken(responseData.token)
       sessionStorage.setItem('token', token)
+      sessionStorage.setItem('nombre', responseData.nombre)
 
       if (response.status === 200) {
         redirect(responseData.role)

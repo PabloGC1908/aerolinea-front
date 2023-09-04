@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MainPage from "./pages/MainPage";
 import ErrorPage from "./pages/ErrorPage";
 import VueloDetailPage from "./pages/VueloDetailPage";
+import PagoPage from "./pages/PagoPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/vuelos/:idVuelo",
     element : <VueloDetailPage />
+  },
+  {
+    path: "/pago",
+    element: <PagoPage />
   }
 ])
 

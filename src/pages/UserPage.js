@@ -1,7 +1,10 @@
+import Navbar from "../components/Navbar";
+
 const UserPage = () => {
   return (
     <div>
-      <h1>Pagina de Usuario</h1>
+      <Navbar />
+      <h1>Vuelos registrados</h1>
     </div>
   )
 }

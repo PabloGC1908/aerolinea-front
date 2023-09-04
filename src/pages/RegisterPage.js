@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const RegisterPage = () => {
   const [nombre, setNombre] = useState('')
@@ -43,41 +44,44 @@ const RegisterPage = () => {
   }
 
   return (
-    <form>
-      <div>
-        <label htmlFor={"nombre"} >Nombre</label>
-        <input type={"text"} id={"nombre"} value={nombre}
-               onChange={(event) => setNombre(event.target.value)} />
-      </div>
-      <div>
-        <label htmlFor={"apellido"} >Apellido</label>
-        <input type={"text"} id={"apellido"} value={apellido}
-               onChange={(event) => setApellido(event.target.value)} />
-      </div>
-      <div>
-        <label htmlFor={"email"} >Email</label>
-        <input type={"email"} id={"email"} value={email}
-               onChange={(event) => setEmail(event.target.value)} />
-      </div>
-      <div>
-        <label htmlFor={"numero"} >Numero</label>
-        <input type={"tel"} id={"numero"} value={numero}
-               onChange={(event) => setNumero(event.target.value)} />
-      </div>
-      <div>
-        <label htmlFor={"contrasenia"} >Contraseña</label>
-        <input type={"password"} id={"contrasenia"} value={contrasenia}
-               onChange={(event) => setContrasenia(event.target.value)} />
-      </div>
-      <div>
-        <button id={"submit"} type={"button"} onClick={() => sendRegisterRequest()}>
-          Registrarse
-        </button>
-        <button type={"button"} onClick={() => navigate("/")}>
-          Volver
-        </button>
-      </div>
-    </form>
+    <div>
+      <Navbar />
+      <form>
+        <div>
+          <label htmlFor={"nombre"} >Nombre</label>
+          <input type={"text"} id={"nombre"} value={nombre}
+                 onChange={(event) => setNombre(event.target.value)} />
+        </div>
+        <div>
+          <label htmlFor={"apellido"} >Apellido</label>
+          <input type={"text"} id={"apellido"} value={apellido}
+                 onChange={(event) => setApellido(event.target.value)} />
+        </div>
+        <div>
+          <label htmlFor={"email"} >Email</label>
+          <input type={"email"} id={"email"} value={email}
+                 onChange={(event) => setEmail(event.target.value)} />
+        </div>
+        <div>
+          <label htmlFor={"numero"} >Numero</label>
+          <input type={"tel"} id={"numero"} value={numero}
+                 onChange={(event) => setNumero(event.target.value)} />
+        </div>
+        <div>
+          <label htmlFor={"contrasenia"} >Contraseña</label>
+          <input type={"password"} id={"contrasenia"} value={contrasenia}
+                 onChange={(event) => setContrasenia(event.target.value)} />
+        </div>
+        <div>
+          <button id={"submit"} type={"button"} onClick={() => sendRegisterRequest()}>
+            Registrarse
+          </button>
+          <button type={"button"} onClick={() => navigate("/")}>
+            Volver
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }
 

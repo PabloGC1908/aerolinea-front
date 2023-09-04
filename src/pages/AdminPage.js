@@ -1,10 +1,12 @@
 import {useNavigate} from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const AdminPage = () => {
   const navigate = useNavigate()
 
   return (
     <div>
+      <Navbar />
       <h1>Pagina de Administrador</h1>
       <div>
         <h2>Que desea hacer?</h2>

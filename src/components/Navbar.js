@@ -20,7 +20,11 @@ const Navbar = () => {
           title='Burger Menu'
           alt='Burger Menu'
         />
+
         <ul className="navigation">
+          <li>
+            <Link to={'/user'} >Bienvenido {sessionStorage.getItem("nombre")}</Link>
+          </li>
           <li>
             <Link to={'/vuelos'}>Vuelos</Link>
           </li>
