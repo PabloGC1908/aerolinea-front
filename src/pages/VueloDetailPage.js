@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
 
@@ -11,7 +11,6 @@ const VueloDetailPage = () => {
   const [horaVuelta, setHoraVuelta] = useState('');
 
   const url = 'http://localhost:8080';
-  const navigate = useNavigate()
 
   const getVueloRequest = async () => {
     try {
@@ -35,7 +34,7 @@ const VueloDetailPage = () => {
   };
 
   useEffect(() => {
-    getVueloRequest();
+    getVueloRequest().then(() => {})
   }, []);
 
   return (
@@ -55,7 +54,9 @@ const VueloDetailPage = () => {
         <p>Precio: PEN {vuelo.precio * 3.70}</p>
       </div>
       <div>
-        <button onClick={() => navigate('/pago')} >Adquirir pasaje</button>
+        <button >
+          <Link to={`/vuelos/${vuelo.uuid}/pago`}>Adquirir pasaje</Link>
+        </button>
       </div>
     </div>
   );

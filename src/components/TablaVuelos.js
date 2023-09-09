@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import "../stylesheets/Table.css"
 import {Link} from "react-router-dom";
 
-const TablaVuelos = ({component}) => {
+const TablaVuelos = () => {
   const [vuelos, setVuelos] = useState([])
 
   const url = 'http://localhost:8080'
@@ -54,7 +54,7 @@ const TablaVuelos = ({component}) => {
                 <td>{vuelo.fechaVuelta}</td>
                 <td>USD {vuelo.precio}</td>
                 <td>
-                  <Link to={`/vuelos/${vuelo.uuid}`}>Comprar</Link>
+                  <Link to={`/vuelos/${vuelo.uuid}`} >Comprar</Link>
                 </td>
               </tr>
             ))

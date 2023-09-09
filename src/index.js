@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     element : <VueloDetailPage />
   },
   {
-    path: "/pago",
+    path: "/vuelos/:idVuelo/pago",
     element: <PagoPage />
   }
 ])

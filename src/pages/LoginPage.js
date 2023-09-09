@@ -29,15 +29,18 @@ const LoginPage = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData)
-      setToken(responseData.token)
-      sessionStorage.setItem('token', token)
-      sessionStorage.setItem('nombre', responseData.nombre)
 
-      if (response.status === 200) {
+      if (response.status === 403){
+        throw new Error("Datos invalidos")
+      } else if (response.status === 500) {
+        throw new Error("Error del servidor")
+      }
+      else if (response.status === 200) {
+        setToken(responseData.token)
+        sessionStorage.setItem('token', token)
+        sessionStorage.setItem('nombre', responseData.nombre)
+        sessionStorage.setItem('rol', responseData.role)
         redirect(responseData.role)
-      } else {
-        new Error("Invalid login attempt");
       }
     } catch (error) {
       alert(error.message);

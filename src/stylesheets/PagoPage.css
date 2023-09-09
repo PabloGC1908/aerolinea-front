@@ -39,7 +39,14 @@
   border-radius: 3px;
 }
 
-input[type=text] {
+.container-descripcion {
+  background-color: #e3e2e2;
+  padding: 5px 20px 30px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+.input-text {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -47,7 +54,7 @@ input[type=text] {
   border-radius: 3px;
 }
 
-label {
+.label-input {
   margin-bottom: 10px;
   display: block;
 }
@@ -71,7 +78,7 @@ label {
 }
 
 .btn:hover {
-  background-color: #45a049;
+  background-color: gray;
 }
 
 a {
@@ -87,7 +94,6 @@ span.price {
   color: grey;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
   .row {
     flex-direction: column-reverse;

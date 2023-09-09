@@ -2,6 +2,19 @@ import "../stylesheets/Navbar.css"
 import {Link} from "react-router-dom";
 
 const Navbar = () => {
+  const userLoggedIn = sessionStorage.getItem("token") !== null
+
+  let navegacionType;
+
+  if (sessionStorage.getItem("rol") === "ADMIN") {
+    navegacionType = <Link to={'/admin'} >Bienvenido {sessionStorage.getItem("nombre")}</Link>
+  } else if (sessionStorage.getItem("rol") === "USER") {
+    navegacionType = <Link to={'/user'} >Bienvenido {sessionStorage.getItem("nombre")}</Link>
+  } else {
+    navegacionType = <></>
+  }
+
+
   return (
 
     <div className="background">
@@ -23,17 +36,27 @@ const Navbar = () => {
 
         <ul className="navigation">
           <li>
-            <Link to={'/user'} >Bienvenido {sessionStorage.getItem("nombre")}</Link>
+            {
+              navegacionType
+            }
           </li>
           <li>
             <Link to={'/vuelos'}>Vuelos</Link>
           </li>
-          <li>
-            <Link to={'/login'}>Iniciar Sesion</Link>
-          </li>
-          <li>
-            <Link to={'/register'}>Registrarse</Link>
-          </li>
+          {userLoggedIn ? (
+            <li>
+              <Link to={'/logout'}>Cerrar Sesión</Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link to={'/login'}>Iniciar Sesión</Link>
+              </li>
+              <li>
+                <Link to={'/register'}>Registrarse</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>

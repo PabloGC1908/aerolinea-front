@@ -1,7 +1,43 @@
 import "../stylesheets/PagoPage.css"
 import Navbar from "../components/Navbar";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const PagoPage = () => {
+  const { idVuelo } = useParams()
+  const [vuelo, setVuelo] = useState({})
+  const [fechaIda, setFechaIda] = useState('')
+  const [fechaVuelta, setFechaVuelta] = useState('')
+  const [nombreTarjeta, setNombreTarjeta] = useState('')
+  const [numeroTarjeta, setNumeroTarjeta] = useState('')
+  const [fechaExpiracion, setFechaExpiracion] = useState('')
+  const [cvv, setCvv] = useState('')
+
+  const url = 'http://localhost:8080';
+
+  const getVueloRequest = async () => {
+    try {
+      const response = await fetch(url.concat("/api/vuelos/").concat(idVuelo), {
+        method: "GET"
+      });
+      const responseData = await response.json();
+
+      const fechaIdaCompleta = new Date(responseData.fechaIda);
+      setFechaIda(fechaIdaCompleta.toLocaleDateString('es-ES'));
+
+      const fechaVueltaCompleta = new Date(responseData.fechaVuelta);
+      setFechaVuelta(fechaVueltaCompleta.toLocaleDateString('es-ES'));
+
+      setVuelo(responseData);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getVueloRequest().then(() => {})
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -11,26 +47,31 @@ const PagoPage = () => {
         <div className="row">
           <div className="col-75">
             <div className="container">
-              <form action="/action_page.php">
+              <form>
                 <div className="row">
                   <div className="col-50">
                     <h3>Pago</h3>
-                    <label htmlFor="cname">Nombre de la tarjeta</label>
+                    <label className={'label-input'} htmlFor="cname">Nombre de la tarjeta</label>
                     <input
+                      className={'input-text'}
                       type="text"
                       id="cname"
                       name="cardname"
-                      placeholder="John More Doe"
+                      placeholder="Coloque su nombre"
+                      value={nombreTarjeta}
                     />
-                    <label htmlFor="ccnum">Numero de la tarjeta</label>
+                    <label className={'label-input'} htmlFor="ccnum">Numero de la tarjeta</label>
                     <input
+                      className={'input-text'}
                       type="text"
                       id="ccnum"
                       name="cardnumber"
                       placeholder="1111-2222-3333-4444"
+                      value={numeroTarjeta}
                     />
-                    <label htmlFor="expmonth">Mes de expiracion</label>
+                    <label className={'label-input'} htmlFor="expmonth">Mes de expiracion</label>
                     <input
+                      className={'input-text'}
                       type="text"
                       id="expmonth"
                       name="expmonth"
@@ -38,8 +79,9 @@ const PagoPage = () => {
                     />
                     <div className="row">
                       <div className="col-50">
-                        <label htmlFor="expyear">Año de expiracion</label>
+                        <label className={'label-input'} htmlFor="expyear">Año de expiracion</label>
                         <input
+                          className={'input-text'}
                           type="text"
                           id="expyear"
                           name="expyear"
@@ -47,8 +89,16 @@ const PagoPage = () => {
                         />
                       </div>
                       <div className="col-50">
-                        <label htmlFor="cvv">CVV</label>
-                        <input type="text" id="cvv" name="cvv" placeholder="352" />
+                        <label className={'label-input'} htmlFor="cvv">CVV</label>
+                        <input
+                          className={'input-text'}
+                          type="text"
+                          id="cvv"
+                          name="cvv"
+                          placeholder="352"
+                          value={cvv}
+                          onChange={(event) => setCvv(event.target.value)}
+                        />
                       </div>
                     </div>
                   </div>
@@ -58,34 +108,47 @@ const PagoPage = () => {
             </div>
           </div>
           <div className="col-25">
-            <div className="container">
+            <div className="container-descripcion">
               <h4>
                 Descripcion <span className="price" style={{ color: 'black' }}>
                 <i className="fa fa-shopping-cart"></i>
               </span>
               </h4>
               <p>
-                <a href="#">Product 1</a>{' '}
-                <span className="price">$15</span>
+                Ciudad ida
+                <span className={'price'}>
+                  {vuelo.ciudadOrigen}
+                </span>
               </p>
               <p>
-                <a href="#">Product 2</a>{' '}
-                <span className="price">$5</span>
+                Ciudad destino
+                <span className={'price'}>
+                  {vuelo.ciudadDestino}
+                </span>
               </p>
               <p>
-                <a href="#">Product 3</a>{' '}
-                <span className="price">$8</span>
+                Fecha vuelo
+                <span className={'price'}>
+                  {fechaIda}
+                </span>
               </p>
               <p>
-                <a href="#">Product 4</a>{' '}
-                <span className="price">$2</span>
+                Fecha de regreso
+                <span className={'price'}>
+                  {fechaVuelta}
+                </span>
               </p>
               <hr />
               <p>
-                Total{' '}
+                Precio{' '}
                 <span className="price" style={{ color: 'black' }}>
-                <b>$30</b>
-              </span>
+                  USD {vuelo.precio}
+                </span>
+              </p>
+              <p>
+                <span className="price" style={{ color: 'black' }}>
+                  PEN {vuelo.precio * 3.70}
+                </span>
               </p>
             </div>
           </div>
