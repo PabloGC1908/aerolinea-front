@@ -31,15 +31,16 @@ const LoginPage = () => {
       const responseData = await response.json();
 
       if (response.status === 403){
-        throw new Error("Datos invalidos")
+        alert("Datos invalidos, ingrese sus datos correctamente")
       } else if (response.status === 500) {
-        throw new Error("Error del servidor")
+        alert("Error del servidor")
       }
       else if (response.status === 200) {
         setToken(responseData.token)
         sessionStorage.setItem('token', token)
         sessionStorage.setItem('nombre', responseData.nombre)
         sessionStorage.setItem('rol', responseData.role)
+        sessionStorage.setItem('id_user', responseData.uuid)
         redirect(responseData.role)
       }
     } catch (error) {
@@ -70,9 +71,6 @@ const LoginPage = () => {
             Registrarse
           </button>
         </div>
-        <p>
-          JWT token is {token}
-        </p>
       </form>
     </div>
   )

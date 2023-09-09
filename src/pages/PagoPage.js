@@ -34,6 +34,45 @@ const PagoPage = () => {
     }
   };
 
+  const  postTarjeta = async () => {
+    try {
+      await fetch(url.concat("/api/tarjetas"), {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+          idUsuario: sessionStorage.getItem("id_user"),
+          nombreTarjeta: nombreTarjeta,
+          numeroTarjeta: numeroTarjeta,
+          fechaExpiracion: fechaExpiracion,
+          cvv: cvv
+        })
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  const postBoleto = async () => {
+    try {
+      await fetch(url.concat("/api/boletos"), {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+          usuarioId: sessionStorage.getItem("id_user"),
+          vueloId: idVuelo
+        })
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  console.log(fechaExpiracion)
+
   useEffect(() => {
     getVueloRequest().then(() => {})
   }, []);
@@ -59,6 +98,7 @@ const PagoPage = () => {
                       name="cardname"
                       placeholder="Coloque su nombre"
                       value={nombreTarjeta}
+                      onChange={event => setNombreTarjeta(event.target.value)}
                     />
                     <label className={'label-input'} htmlFor="ccnum">Numero de la tarjeta</label>
                     <input
@@ -68,24 +108,19 @@ const PagoPage = () => {
                       name="cardnumber"
                       placeholder="1111-2222-3333-4444"
                       value={numeroTarjeta}
-                    />
-                    <label className={'label-input'} htmlFor="expmonth">Mes de expiracion</label>
-                    <input
-                      className={'input-text'}
-                      type="text"
-                      id="expmonth"
-                      name="expmonth"
-                      placeholder="September"
+                      onChange={event => setNumeroTarjeta(event.target.value)}
                     />
                     <div className="row">
                       <div className="col-50">
-                        <label className={'label-input'} htmlFor="expyear">Año de expiracion</label>
+                        <label className={'label-input'} htmlFor="expyear">Mes y año de expiracion</label>
                         <input
                           className={'input-text'}
-                          type="text"
+                          type="month"
                           id="expyear"
                           name="expyear"
                           placeholder="2018"
+                          value={fechaExpiracion}
+                          onChange={event => setFechaExpiracion(event.target.value)}
                         />
                       </div>
                       <div className="col-50">
@@ -103,7 +138,10 @@ const PagoPage = () => {
                     </div>
                   </div>
                 </div>
-                <input type="submit" value="Continue to checkout" className="btn" />
+                <input type="submit" value="Pagar viaje" className="btn" onClick={() => {
+                  postTarjeta().then(() => {})
+                  postBoleto().then(() => {})
+                }} />
               </form>
             </div>
           </div>

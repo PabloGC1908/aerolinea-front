@@ -36,7 +36,7 @@ const RegisterPage = () => {
       if (response.status === 200) {
         navigate('/')
       } else {
-        new Error("Invalid register attempt");
+        throw new Error("Invalid register attempt");
       }
     } catch (error) {
       alert(error.message);
