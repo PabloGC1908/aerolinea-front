@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [contrasenia, setContrasenia] = useState("")
-  const [token, setToken] = useState("")
 
   const usuario = {email, contrasenia}
   const url = 'http://localhost:8080'
@@ -36,8 +35,7 @@ const LoginPage = () => {
         alert("Error del servidor")
       }
       else if (response.status === 200) {
-        setToken(responseData.token)
-        sessionStorage.setItem('token', token)
+        sessionStorage.setItem('token', responseData.token)
         sessionStorage.setItem('nombre', responseData.nombre)
         sessionStorage.setItem('rol', responseData.role)
         sessionStorage.setItem('id_user', responseData.uuid)

@@ -1,31 +1,33 @@
+import React, { useState } from "react";
 import "../stylesheets/Dropdown.css"
-import {useState} from "react";
 
-const Dropdown = ({ data, selected, setSelected }) => {
+const Dropdown = ({ data, selected, setSelected, labelKey }) => {
   const [isActive, setIsActive] = useState(false);
+  const selectedOption = data.find((item) => item.id === selected);
 
-  const meses = Object.keys(data).map((nombre) => ({
-    nombre,
-    valor: data[nombre],
-  }));
+  const toggleDropdown = () => {
+    setIsActive(!isActive);
+  };
+
+  const handleOptionClick = (item) => {
+    setSelected(item.id);
+    setIsActive(false);
+  };
 
   return (
     <div className={"dropdown"}>
-      <div className={"dropdown-btn"} onClick={() => setIsActive(!isActive)}>
-        Seleccionar
+      <div className={"dropdown-btn"} onClick={toggleDropdown}>
+        {selectedOption ? selectedOption[labelKey] : "Seleccionar"}
       </div>
       {isActive && (
         <div className={"dropdown-content"}>
-          {meses.map((mes) => (
+          {data.map((item) => (
             <div
-              key={mes.valor}
+              key={item.id}
               className={"dropdown-item"}
-              onClick={() => {
-                setSelected(mes.valor)
-                setIsActive(false)
-              }}
+              onClick={() => handleOptionClick(item)}
             >
-              {mes.nombre}
+              {item[labelKey]}
             </div>
           ))}
         </div>
@@ -35,3 +37,4 @@ const Dropdown = ({ data, selected, setSelected }) => {
 };
 
 export default Dropdown;
+

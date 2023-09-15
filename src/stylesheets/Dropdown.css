@@ -1,7 +1,7 @@
 .dropdown {
   width: 400px;
   user-select: none;
-  margin: 100px auto;
+
   position: relative;
 }
 
@@ -34,5 +34,5 @@
 }
 
 .dropdown .dropdown-content .dropdown-item:hover {
-  background: #333333;
+  background: #967d7d;
 }

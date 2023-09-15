@@ -11,6 +11,7 @@ import MainPage from "./pages/MainPage";
 import ErrorPage from "./pages/ErrorPage";
 import VueloDetailPage from "./pages/VueloDetailPage";
 import PagoPage from "./pages/PagoPage";
+import ModVueloPage from "./pages/ModVueloPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/vuelos/:idVuelo/pago",
     element: <PagoPage />
+  },
+  {
+    path: "/add-vuelo",
+    element: <ModVueloPage />
   }
 ])
 

@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const AdminPage = () => {
@@ -12,7 +12,7 @@ const AdminPage = () => {
         <h2>Que desea hacer?</h2>
         <div>
           <button>
-            Ingresar nuevo vuelo
+            <Link to={'/add-vuelo'}>Añadir vuelo</Link>
           </button>
         </div>
         <div>
