@@ -14,6 +14,10 @@ const Navbar = () => {
     navegacionType = <></>
   }
 
+  const limpiarSessionStorage = () => {
+    sessionStorage.clear()
+  }
+
   return (
 
     <div className="background">
@@ -44,7 +48,7 @@ const Navbar = () => {
           </li>
           {userLoggedIn ? (
             <li>
-              <Link to={'/logout'}>Cerrar Sesión</Link>
+              <Link onClick={() => limpiarSessionStorage()} to={'/'} >Cerrar Sesión</Link>
             </li>
           ) : (
             <>
