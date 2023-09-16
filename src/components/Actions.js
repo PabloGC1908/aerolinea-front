@@ -17,11 +17,12 @@ const Actions = ({data}) => {
   }
 
   const deleteVuelo = (idVuelo) => {
-    fetch(url.concat(`/${idVuelo}`), {
+    fetch(url.concat(`/api/vuelos/${idVuelo}`), {
       method: "DELETE"
     }).then(response => {
       if (response.status === 200) {
-        alert(response.json())
+        alert("Vuelo eliminado correctamente")
+        window.location.reload()
       } else {
         alert("Ocurrio un error")
       }
