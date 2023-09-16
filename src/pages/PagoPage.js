@@ -71,8 +71,6 @@ const PagoPage = () => {
     }
   }
 
-  console.log(fechaExpiracion)
-
   useEffect(() => {
     getVueloRequest().then(() => {})
   }, []);

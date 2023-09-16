@@ -1,13 +1,13 @@
 import Navbar from "../components/Navbar";
 import TablaVuelos from "../components/TablaVuelos";
 
-const VuelosPage = () => {
-  return(
+const VuelosAdminPage = () => {
+  return (
     <div>
       <Navbar />
-      <TablaVuelos page={'user'} />
+      <TablaVuelos page={'admin'} />
     </div>
   )
 }
 
-export default VuelosPage
+export default VuelosAdminPage

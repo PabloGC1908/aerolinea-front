@@ -1,11 +1,22 @@
 import {useEffect, useState} from "react";
 import "../stylesheets/Table.css"
 import {Link} from "react-router-dom";
+import Actions from "./Actions";
 
-const TablaVuelos = () => {
+const TablaVuelos = ({page}) => {
   const [vuelos, setVuelos] = useState([])
 
   const url = 'http://localhost:8080'
+
+  const component = (data) => {
+    if (page === "user") {
+      return <Link to={`/vuelos/${data}`} >Comprar</Link>
+    } else if (page === "admin") {
+      return (
+        <Actions data={data}/>
+      )
+    }
+  }
 
   const getVuelosRequest = async () => {
     try {
@@ -54,7 +65,9 @@ const TablaVuelos = () => {
                 <td>{vuelo.fechaVuelta}</td>
                 <td>USD {vuelo.precio}</td>
                 <td>
-                  <Link to={`/vuelos/${vuelo.uuid}`} >Comprar</Link>
+                  {
+                    component(vuelo.uuid)
+                  }
                 </td>
               </tr>
             ))

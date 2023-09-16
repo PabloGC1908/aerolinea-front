@@ -16,7 +16,7 @@ const AdminPage = () => {
           </button>
         </div>
         <div>
-          <button>
+          <button onClick={() => navigate('/admin-vuelos')}>
             Administrar vuelos
           </button>
         </div>

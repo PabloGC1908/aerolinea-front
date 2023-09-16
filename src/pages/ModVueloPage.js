@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import Dropdown from "../components/Dropdown";
 import Navbar from "../components/Navbar";
+import {useNavigate} from "react-router-dom";
 
-const ModVueloPage = () => {
+const ModVueloPage = ({data}) => {
   const [aerolineas, setAerolineas] = useState([])
   const [ciudades, setCiudades] = useState([])
 
@@ -15,6 +16,7 @@ const ModVueloPage = () => {
   const [precio, setPrecio] = useState('')
 
   const url = 'http://localhost:8080'
+
 
   const vuelo = {
     ciudadOrigenId: ciudadIda,
@@ -44,14 +46,18 @@ const ModVueloPage = () => {
     setCiudades(responseData)
   }
 
-  const postVuelo = () => {
-    fetch(url.concat('/api/vuelos'), {
+  const postVuelo = async () => {
+    const response = await fetch(url.concat('/api/vuelos'), {
       headers: {
         "Content-Type": "application/json"
       },
       method: "POST",
       body: JSON.stringify(vuelo)
     }).then(r => {})
+
+    if (response.status === 200) {
+      alert("Vuelo agregado correctamente")
+    }
   }
 
   useEffect(() => {
