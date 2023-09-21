@@ -1,6 +1,8 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import Navbar from "../components/Navbar";
+import {useState} from "react"
+import {Link, useNavigate} from "react-router-dom"
+import Navbar from "../components/Navbar"
+import "../stylesheets/LoginPage.css"
+import Logo from "../components/Logo";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("")
@@ -48,29 +50,33 @@ const LoginPage = () => {
 
 
   return (
-    <div>
+    <>
       <Navbar />
-      <form>
-        <div>
-          <label htmlFor={"email"} >Email</label>
-          <input type={"email"} id={"email"} value={email}
-                 onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div>
-          <label htmlFor={"contrasenia"} >Contraseña</label>
-          <input type={"password"} id={"contrasenia"} value={contrasenia}
-                 onChange={(event) => setContrasenia(event.target.value)} />
-        </div>
-        <div>
-          <button id={"submit"} type={"button"} onClick={() => sendLoginRequest()}>
-            Iniciar Sesion
-          </button>
-          <button type={"button"} onClick={() => navigate("/register")} >
-            Registrarse
-          </button>
-        </div>
-      </form>
-    </div>
+      <div className={'login-container'}>
+        <h2>Inicie Sesion</h2>
+        <form className={"login-form"} method="post">
+          <div className="container">
+            <div className="img-container">
+              <Logo />
+            </div>
+            <label htmlFor={"email"} ><b>Email</b></label>
+            <input className={"input-text"} type={"email"} id={"email"}
+                   value={email} placeholder={"Email"} required={true}
+                   onChange={(event) => setEmail(event.target.value)} />
+
+            <label htmlFor={"contrasenia"} ><b>Contraseña</b></label>
+            <input className={"input-text"} type={"password"} id={"contrasenia"}
+                   value={contrasenia} placeholder={"Contraseña"} required={true}
+                   onChange={(event) => setContrasenia(event.target.value)} />
+
+            <button className={"login-button"} onClick={() => sendLoginRequest()} type="submit">Login</button>
+            <label>
+              <input type="checkbox" defaultChecked name="remember" /> Recuerdame
+            </label>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
 

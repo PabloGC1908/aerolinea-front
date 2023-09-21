@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Navbar from "../components/Navbar";
+import "../stylesheets/LoginPage.css"
 
 const RegisterPage = () => {
   const [nombre, setNombre] = useState('')
@@ -36,7 +37,7 @@ const RegisterPage = () => {
       if (response.status === 200) {
         navigate('/')
       } else {
-        throw new Error("Invalid register attempt");
+        alert("Invalid register attempt");
       }
     } catch (error) {
       alert(error.message);
@@ -46,38 +47,30 @@ const RegisterPage = () => {
   return (
     <div>
       <Navbar />
-      <form>
-        <div>
+      <form className={"login-form"}>
+        <div className={"container"}>
+          <h1>Registrarse</h1>
           <label htmlFor={"nombre"} >Nombre</label>
-          <input type={"text"} id={"nombre"} value={nombre}
+          <input className={"input-text"} type={"text"} id={"nombre"} value={nombre} required={true}
                  onChange={(event) => setNombre(event.target.value)} />
-        </div>
-        <div>
           <label htmlFor={"apellido"} >Apellido</label>
-          <input type={"text"} id={"apellido"} value={apellido}
+          <input className={"input-text"} type={"text"} id={"apellido"} value={apellido} required={true}
                  onChange={(event) => setApellido(event.target.value)} />
-        </div>
-        <div>
+
           <label htmlFor={"email"} >Email</label>
-          <input type={"email"} id={"email"} value={email}
+          <input className={"input-text"} type={"email"} id={"email"} value={email} required={true}
                  onChange={(event) => setEmail(event.target.value)} />
-        </div>
-        <div>
+
           <label htmlFor={"numero"} >Numero</label>
-          <input type={"tel"} id={"numero"} value={numero}
+          <input className={"input-text"} type={"tel"} id={"numero"} value={numero} required={true}
                  onChange={(event) => setNumero(event.target.value)} />
-        </div>
-        <div>
+
           <label htmlFor={"contrasenia"} >Contraseña</label>
-          <input type={"password"} id={"contrasenia"} value={contrasenia}
+          <input className={"input-text"} type={"password"} id={"contrasenia"} value={contrasenia} required={true}
                  onChange={(event) => setContrasenia(event.target.value)} />
-        </div>
-        <div>
-          <button id={"submit"} type={"button"} onClick={() => sendRegisterRequest()}>
+
+          <button className={"login-button"} id={"submit"} type={"button"} onClick={() => sendRegisterRequest()}>
             Registrarse
-          </button>
-          <button type={"button"} onClick={() => navigate("/")}>
-            Volver
           </button>
         </div>
       </form>
