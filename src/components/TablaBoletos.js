@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import "../stylesheets/Table.css"
 
 const TablaBoletos = () => {
   const [boletos, setBoletos] = useState([])
@@ -26,15 +27,15 @@ const TablaBoletos = () => {
 
   return (
     <div>
-      <table>
+      <table className="table-vuelos">
         <thead>
           <tr>
-            <th>Id</th>
             <th>Ciudad ida</th>
             <th>Ciudad Destino</th>
             <th>Fecha embarque</th>
             <th>Fecha compra</th>
             <th>Precio</th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +47,7 @@ const TablaBoletos = () => {
               <td>{boleto.fechaIda}</td>
               <td>{boleto.fechaCompra}</td>
               <td>{boleto.precio}</td>
+              <td>Reembolsar</td>
             </tr>
           ))
         }
