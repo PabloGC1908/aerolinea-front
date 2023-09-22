@@ -6,13 +6,13 @@ const Actions = ({data}) => {
 
   const patchVuelo = () => {
     if (window.confirm("¿Quiere modificar el vuelo?")){
-       navigate('/add-vuelo')
+       navigate(`/mod-vuelo/${data.uuid}`)
     }
   }
 
   const eliminarVuelo = () => {
     if (window.confirm("¿Desea eliminar este vuelo?")) {
-      deleteVuelo(data)
+      deleteVuelo(data.uuid)
     }
   }
 

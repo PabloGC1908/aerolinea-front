@@ -1,5 +1,6 @@
 .login-form {
   border: 3px solid #dbdbe5;
+  margin: 0 100px;
 }
 
 .input-text {
@@ -36,18 +37,6 @@
   margin: 24px 0 12px 0;
 }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
 .container {
   padding: 16px;
-}
-
-
-@media screen and (max-width: 300px) {
-  .cancel-btn {
-    width: 100%;
-  }
 }

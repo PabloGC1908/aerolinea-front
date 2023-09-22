@@ -1,119 +1,173 @@
-import {useEffect, useState} from "react";
-import Dropdown from "../components/Dropdown";
+import { useState, useEffect } from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import Navbar from "../components/Navbar";
-import {useNavigate} from "react-router-dom";
+import Dropdown from "../components/Dropdown";
+import getVuelo from "../helpers/getVuelo";
 
-const ModVueloPage = ({data}) => {
-  const [aerolineas, setAerolineas] = useState([])
-  const [ciudades, setCiudades] = useState([])
+const ModVueloPage = () => {
+  const { idVuelo } = useParams();
+  const navigate = useNavigate()
 
-  const [ciudadIda, setCiudadIda] = useState(0)
-  const [ciudadVuelta, setCiudadVuelta] = useState(0)
-  const [aerolinea, setAerolinea] = useState(0)
-  const [cantidadPasajeros, setCantidadPasajeros] = useState('')
-  const [fechaIda, setFechaIda] = useState('')
-  const [fechaVuelta, setFechaVuelta] = useState('')
-  const [precio, setPrecio] = useState('')
+  const [aerolineas, setAerolineas] = useState([]);
+  const [ciudades, setCiudades] = useState([]);
 
-  const url = 'http://localhost:8080'
+  const [formData, setFormData] = useState({
+    ciudadOrigenId: 0,
+    ciudadDestinoId: 0,
+    aerolineaId: 0,
+    cantidadPasajeros: "",
+    fechaIda: "",
+    fechaVuelta: "",
+    precio: "",
+  });
 
-
-  const vuelo = {
-    ciudadOrigenId: ciudadIda,
-    ciudadDestinoId: ciudadVuelta,
-    aerolineaId: aerolinea,
-    cantidadPasajeros: parseInt(cantidadPasajeros),
-    fechaIda: fechaIda.concat(':00.000+00:00'),
-    fechaVuelta: fechaVuelta.concat(':00.000+00:00'),
-    precio: parseFloat(precio)
-  }
+  const url = "http://localhost:8080";
 
   const getAerolineas = async () => {
-    const response = await fetch(url.concat('/api/aerolineas'), {
-      method: "GET"
-    })
+    const response = await fetch(url.concat("/api/aerolineas"), {
+      method: "GET",
+    });
 
-    const responseData = await response.json()
-    setAerolineas(responseData)
-  }
+    const responseData = await response.json();
+    setAerolineas(responseData);
+  };
 
   const getCiudades = async () => {
-    const response = await fetch(url.concat('/api/ciudades'), {
-      method: "GET"
-    })
+    const response = await fetch(url.concat("/api/ciudades"), {
+      method: "GET",
+    });
 
-    const responseData = await response.json()
-    setCiudades(responseData)
-  }
+    const responseData = await response.json();
+    setCiudades(responseData);
+  };
 
-  const postVuelo = async () => {
-    const response = await fetch(url.concat('/api/vuelos'), {
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify(vuelo)
-    }).then(r => {})
-
-    if (response.status === 200) {
-      alert("Vuelo agregado correctamente")
+  const method = () => {
+    if (idVuelo === undefined) {
+      return "POST"
+    } else {
+      return "PUT"
     }
   }
 
-  useEffect(() => {
-    getCiudades().then(() => {})
-    getAerolineas().then(() => {})
-  }, [])
+  const postVuelo = async () => {
+    const response = await fetch(url.concat(`/api/vuelos/${idVuelo}`), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: method(),
+      body: JSON.stringify({
+        ...formData,
+        fechaIda: formData.fechaIda.concat(':00.000+00:00'),
+        fechaVuelta: formData.fechaVuelta.concat(':00.000+00:00')
+      }),
+    });
 
+    console.log(response.status)
+
+    if (response.status === 200) {
+      alert("Vuelo actualizado correctamente");
+      navigate('/admin-vuelos')
+    } else {
+      alert("Error al actualizar vuelo")
+    }
+  };
+
+  console.log(formData)
+
+  useEffect(() => {
+    getCiudades().then(() => {});
+    getAerolineas().then(() => {});
+
+    if (idVuelo !== undefined) {
+      getVuelo(idVuelo).then((data) => {
+        setFormData({
+          ciudadOrigenId: data.ciudadOrigenId,
+          ciudadDestinoId: data.ciudadDestinoId,
+          aerolineaId: data.aerolineaId,
+          cantidadPasajeros: data.cantidadPasajeros.toString(),
+          precio: data.precio.toString(),
+          fechaIda: data.fechaIda.slice(0, 16),
+          fechaVuelta: data.fechaVuelta.slice(0, 16),
+        });
+      });
+    }
+  }, [idVuelo]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <form>
         <Dropdown
           data={ciudades}
-          selected={ciudadIda}
-          setSelected={setCiudadIda}
+          selected={formData.ciudadOrigenId}
+          setSelected={(value) => handleInputChange({ target: { name: "ciudadIda", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={ciudades}
-          selected={ciudadVuelta}
-          setSelected={setCiudadVuelta}
+          selected={formData.ciudadDestinoId}
+          setSelected={(value) => handleInputChange({ target: { name: "ciudadVuelta", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={aerolineas}
-          selected={aerolinea}
-          setSelected={setAerolinea}
+          selected={formData.aerolineaId}
+          setSelected={(value) => handleInputChange({ target: { name: "aerolinea", value } })}
           labelKey={"aerolinea"}
         />
         <div>
-          <label htmlFor={"cantidad-pasajeros"} >Cantidad de pasajeros</label>
-          <input type={"text"} id={"cantidad-pasajeros"} value={cantidadPasajeros}
-                 onChange={(event) => setCantidadPasajeros(event.target.value)} />
+          <label htmlFor={"cantidad-pasajeros"}>Cantidad de pasajeros</label>
+          <input
+            type={"text"}
+            id={"cantidad-pasajeros"}
+            name="cantidadPasajeros"
+            value={formData.cantidadPasajeros}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-          <label htmlFor={"precio"} >Precio</label>
-          <input type={"text"} id={"precio"} value={precio}
-                 onChange={(event) => setPrecio(event.target.value)} />
+          <label htmlFor={"precio"}>Precio</label>
+          <input
+            type={"text"}
+            id={"precio"}
+            name="precio"
+            value={formData.precio}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-          <label htmlFor={"fecha-vuelo"} >Fecha de vuelo</label>
-          <input type={"datetime-local"} id={"fecha-vuelo"} value={fechaIda}
-                 onChange={(event) => setFechaIda(event.target.value)} />
+          <label htmlFor={"fecha-vuelo"}>Fecha de vuelo</label>
+          <input
+            type={"datetime-local"}
+            id={"fecha-vuelo"}
+            name="fechaIda"
+            value={formData.fechaIda}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
-        <label htmlFor={"fecha-vuelta"} >Fecha de vuelta</label>
-        <input type={"datetime-local"} id={"fecha-vuelta"} value={fechaVuelta}
-               onChange={(event) => setFechaVuelta(event.target.value)} />
+          <label htmlFor={"fecha-vuelta"}>Fecha de vuelta</label>
+          <input
+            type={"datetime-local"}
+            id={"fecha-vuelta"}
+            name="fechaVuelta"
+            value={formData.fechaVuelta}
+            onChange={handleInputChange}
+          />
         </div>
-        <button onClick={() => postVuelo()}>
-          Añadir vuelo
-        </button>
+        <button onClick={postVuelo}>Guardar cambios</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ModVueloPage
+export default ModVueloPage;
+

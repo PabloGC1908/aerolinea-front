@@ -10,7 +10,7 @@ const TablaVuelos = ({page}) => {
 
   const component = (data) => {
     if (page === "user") {
-      return <Link to={`/vuelos/${data}`} >Comprar</Link>
+      return <Link to={`/vuelos/${data.uuid}`} >Comprar</Link>
     } else if (page === "admin") {
       return (
         <Actions data={data}/>
@@ -66,7 +66,7 @@ const TablaVuelos = ({page}) => {
                 <td>USD {vuelo.precio}</td>
                 <td>
                   {
-                    component(vuelo.uuid)
+                    component(vuelo)
                   }
                 </td>
               </tr>

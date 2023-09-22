@@ -1,5 +1,5 @@
 import {useState} from "react"
-import {Link, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import Navbar from "../components/Navbar"
 import "../stylesheets/LoginPage.css"
 import Logo from "../components/Logo";
@@ -41,7 +41,12 @@ const LoginPage = () => {
         sessionStorage.setItem('nombre', responseData.nombre)
         sessionStorage.setItem('rol', responseData.role)
         sessionStorage.setItem('id_user', responseData.uuid)
-        redirect(responseData.role)
+
+        if (responseData.role) {
+          redirect(responseData.role);
+        } else {
+          alert("Error en la respuesta del servidor");
+        }
       }
     } catch (error) {
       alert(error.message);
@@ -53,26 +58,23 @@ const LoginPage = () => {
     <>
       <Navbar />
       <div className={'login-container'}>
-        <h2>Inicie Sesion</h2>
-        <form className={"login-form"} method="post">
+        <form className={"login-form"}>
           <div className="container">
+            <h2>Inicie Sesion</h2>
             <div className="img-container">
               <Logo />
             </div>
             <label htmlFor={"email"} ><b>Email</b></label>
             <input className={"input-text"} type={"email"} id={"email"}
-                   value={email} placeholder={"Email"} required={true}
+                   value={email} placeholder={"Email"}
                    onChange={(event) => setEmail(event.target.value)} />
 
             <label htmlFor={"contrasenia"} ><b>Contraseña</b></label>
             <input className={"input-text"} type={"password"} id={"contrasenia"}
-                   value={contrasenia} placeholder={"Contraseña"} required={true}
+                   value={contrasenia} placeholder={"Contraseña"}
                    onChange={(event) => setContrasenia(event.target.value)} />
 
-            <button className={"login-button"} onClick={() => sendLoginRequest()} type="submit">Login</button>
-            <label>
-              <input type="checkbox" defaultChecked name="remember" /> Recuerdame
-            </label>
+            <button className={"login-button"} onClick={sendLoginRequest} type="submit">Login</button>
           </div>
         </form>
       </div>

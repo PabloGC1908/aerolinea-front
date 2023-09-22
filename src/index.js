@@ -56,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/admin-vuelos",
     element: <VuelosAdminPage />
+  },
+  {
+    path: "/mod-vuelo/:idVuelo",
+    element: <ModVueloPage />
   }
 ])
 
