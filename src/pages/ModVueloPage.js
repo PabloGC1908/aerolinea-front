@@ -72,8 +72,6 @@ const ModVueloPage = () => {
     }
   };
 
-  console.log(formData)
-
   useEffect(() => {
     getCiudades().then(() => {});
     getAerolineas().then(() => {});
@@ -93,6 +91,8 @@ const ModVueloPage = () => {
     }
   }, [idVuelo]);
 
+  console.log(formData)
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -108,19 +108,19 @@ const ModVueloPage = () => {
         <Dropdown
           data={ciudades}
           selected={formData.ciudadOrigenId}
-          setSelected={(value) => handleInputChange({ target: { name: "ciudadIda", value } })}
+          setSelected={(value) => handleInputChange({ target: { name: "ciudadOrigenId", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={ciudades}
           selected={formData.ciudadDestinoId}
-          setSelected={(value) => handleInputChange({ target: { name: "ciudadVuelta", value } })}
+          setSelected={(value) => handleInputChange({ target: { name: "ciudadDestinoId", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={aerolineas}
           selected={formData.aerolineaId}
-          setSelected={(value) => handleInputChange({ target: { name: "aerolinea", value } })}
+          setSelected={(value) => handleInputChange({ target: { name: "aerolineaId", value } })}
           labelKey={"aerolinea"}
         />
         <div>
