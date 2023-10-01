@@ -22,40 +22,45 @@ const LoginPage = () => {
   const sendLoginRequest = async () => {
     try {
       const response = await fetch(url.concat("/auth/log-in"), {
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        method: "POST",
         body: JSON.stringify(usuario)
       });
+      console.log(response)
+
+      if (!response.ok) {
+        throw new Error("Error en el inicio de sesion")
+      }
 
       const responseData = await response.json();
+      console.log(responseData)
 
       if (response.status === 403){
-        alert("Datos invalidos, ingrese sus datos correctamente")
-      } else if (response.status === 500) {
-        alert("Error del servidor")
+        throw new Error("Datos invalidos, ingrese sus datos correctamente")
       }
-      else if (response.status === 200) {
+
+      if (response.status === 500) {
+        throw new Error("Error del servidor")
+      }
+
+      if (response.status === 200) {
         sessionStorage.setItem('token', responseData.token)
         sessionStorage.setItem('nombre', responseData.nombre)
         sessionStorage.setItem('rol', responseData.role)
         sessionStorage.setItem('id_user', responseData.uuid)
 
-        if (responseData.role) {
-          redirect(responseData.role);
-        } else {
-          alert("Error en la respuesta del servidor");
-        }
+        redirect(responseData.role)
       }
     } catch (error) {
-      alert(error.message);
+      alert(error.message)
     }
   }
 
 
   return (
-    <>
+    <div>
       <Navbar />
       <div className={'login-container'}>
         <form className={"login-form"}>
@@ -72,13 +77,15 @@ const LoginPage = () => {
             <label htmlFor={"contrasenia"} ><b>Contraseña</b></label>
             <input className={"input-text"} type={"password"} id={"contrasenia"}
                    value={contrasenia} placeholder={"Contraseña"}
-                   onChange={(event) => setContrasenia(event.target.value)} />
+                   onChange={(event) => setContrasenia(event.target.value)}
+                   autoComplete={"current-password"}
+            />
 
-            <button className={"login-button"} onClick={sendLoginRequest} type="submit">Login</button>
+            <button className={"login-button"} onClick={sendLoginRequest} type="button">Login</button>
           </div>
         </form>
       </div>
-    </>
+    </div>
   )
 }
 

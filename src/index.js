@@ -13,57 +13,63 @@ import VueloDetailPage from "./pages/VueloDetailPage";
 import PagoPage from "./pages/PagoPage";
 import ModVueloPage from "./pages/ModVueloPage";
 import VuelosAdminPage from "./pages/VuelosAdminPage";
+import {DevSupport} from "@react-buddy/ide-toolbox";
+import {ComponentPreviews, useInitial} from "./dev";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />
+    element: <MainPage/>
   },
   {
     path: "/login",
-    element: <LoginPage />,
-    errorElement: <ErrorPage />
+    element: <LoginPage/>,
+    errorElement: <ErrorPage/>
   },
   {
     path: "/register",
-    element: <RegisterPage />,
-    errorElement: <ErrorPage />
+    element: <RegisterPage/>,
+    errorElement: <ErrorPage/>
   },
   {
     path: "/user",
-    element: <UserPage />
+    element: <UserPage/>
   },
   {
     path: "/admin",
-    element: <AdminPage />
+    element: <AdminPage/>
   },
   {
     path: "/vuelos",
-    element: <VuelosPage />,
+    element: <VuelosPage/>,
   },
   {
     path: "/vuelos/:idVuelo",
-    element : <VueloDetailPage />
+    element: <VueloDetailPage/>
   },
   {
     path: "/vuelos/:idVuelo/pago",
-    element: <PagoPage />
+    element: <PagoPage/>
   },
   {
     path: "/add-vuelo",
-    element: <ModVueloPage />
+    element: <ModVueloPage/>
   },
   {
     path: "/admin-vuelos",
-    element: <VuelosAdminPage />
+    element: <VuelosAdminPage/>
   },
   {
     path: "/mod-vuelo/:idVuelo",
-    element: <ModVueloPage />
+    element: <ModVueloPage/>
   }
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RouterProvider router={router} />
+  <DevSupport ComponentPreviews={ComponentPreviews}
+              useInitialHook={useInitial}
+  >
+    <RouterProvider router={router}/>
+  </DevSupport>
 );
