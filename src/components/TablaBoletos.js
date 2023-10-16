@@ -21,6 +21,10 @@ const TablaBoletos = () => {
     setBoletos(formateoBoletoFechas)
   }
 
+  const deleteBoleto = async () => {
+    const response = await fetch(url.concat('/api/boletos'))
+  }
+
   useEffect(() => {
     getBoletos().then(() => {})
   }, []);

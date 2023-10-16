@@ -13,8 +13,6 @@ import VueloDetailPage from "./pages/VueloDetailPage";
 import PagoPage from "./pages/PagoPage";
 import ModVueloPage from "./pages/ModVueloPage";
 import VuelosAdminPage from "./pages/VuelosAdminPage";
-import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "./dev";
 
 const router = createBrowserRouter([
   {
@@ -67,9 +65,5 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <DevSupport ComponentPreviews={ComponentPreviews}
-              useInitialHook={useInitial}
-  >
     <RouterProvider router={router}/>
-  </DevSupport>
 );

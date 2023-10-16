@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../stylesheets/LoginPage.css"
@@ -43,6 +43,10 @@ const RegisterPage = () => {
       alert(error.message);
     }
   }
+
+  useEffect(() => {
+    document.title = "Registrarse"
+  }, []);
 
   return (
     <div>

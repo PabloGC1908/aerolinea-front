@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import Navbar from "../components/Navbar"
 import "../stylesheets/LoginPage.css"
@@ -51,6 +51,8 @@ const LoginPage = () => {
         sessionStorage.setItem('rol', responseData.role)
         sessionStorage.setItem('id_user', responseData.uuid)
 
+        alert(`Bienvenido ${responseData.nombre}`)
+
         redirect(responseData.role)
       }
     } catch (error) {
@@ -58,6 +60,9 @@ const LoginPage = () => {
     }
   }
 
+  useEffect(() => {
+    document.title = "Iniciar sesion"
+  }, []);
 
   return (
     <div>

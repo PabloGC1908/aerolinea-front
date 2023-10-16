@@ -34,6 +34,7 @@ const VueloDetailPage = () => {
   };
 
   useEffect(() => {
+    document.title = "Detalles"
     getVueloRequest().then(() => {})
   }, []);
 
