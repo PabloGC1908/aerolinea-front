@@ -73,6 +73,7 @@ const PagoPage = () => {
 
   useEffect(() => {
     getVueloRequest().then(() => {})
+    document.title = "Pago"
   }, []);
 
   return (
@@ -136,9 +137,10 @@ const PagoPage = () => {
                     </div>
                   </div>
                 </div>
-                <input type="submit" value="Pagar viaje" className="btn" onClick={() => {
+                <input value="Pagar viaje" className="btn" onClick={() => {
                   postTarjeta().then(() => {})
                   postBoleto().then(() => {})
+                  alert('Boleto registrado')
                 }} />
               </form>
             </div>

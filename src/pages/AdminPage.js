@@ -1,7 +1,12 @@
 import {Link} from "react-router-dom";
 import Navbar from "../components/Navbar";
+import {useEffect} from "react";
 
 const AdminPage = () => {
+
+  useEffect(() => {
+    document.title = "Admin"
+  }, []);
 
   return (
     <div>
