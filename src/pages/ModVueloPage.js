@@ -62,8 +62,6 @@ const ModVueloPage = () => {
       }),
     });
 
-    console.log(response.status)
-
     if (response.status === 200) {
       alert("Vuelo actualizado correctamente");
       navigate('/admin-vuelos')
@@ -107,18 +105,21 @@ const ModVueloPage = () => {
       <form>
         <Dropdown
           data={ciudades}
+          id={'ciudad-origen'}
           selected={formData.ciudadOrigenId}
           setSelected={(value) => handleInputChange({ target: { name: "ciudadOrigenId", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={ciudades}
+          id={'ciudad-destino'}
           selected={formData.ciudadDestinoId}
           setSelected={(value) => handleInputChange({ target: { name: "ciudadDestinoId", value } })}
           labelKey={"ciudad"}
         />
         <Dropdown
           data={aerolineas}
+          id={'aerolinea'}
           selected={formData.aerolineaId}
           setSelected={(value) => handleInputChange({ target: { name: "aerolineaId", value } })}
           labelKey={"aerolinea"}
@@ -163,7 +164,7 @@ const ModVueloPage = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button onClick={postVuelo}>Guardar cambios</button>
+        <button className={'btn-enviar'} onClick={postVuelo}>Guardar cambios</button>
       </form>
     </div>
   );

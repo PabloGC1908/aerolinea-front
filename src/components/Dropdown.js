@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../stylesheets/Dropdown.css"
 
-const Dropdown = ({ data, selected, setSelected, labelKey }) => {
+const Dropdown = ({ data, selected, setSelected, labelKey, id }) => {
   const [isActive, setIsActive] = useState(false);
   const selectedOption = data.find((item) => item.id === selected);
 
@@ -15,7 +15,7 @@ const Dropdown = ({ data, selected, setSelected, labelKey }) => {
   };
 
   return (
-    <div className={"dropdown"}>
+    <div className={"dropdown"} id={id}>
       <div className={"dropdown-btn"} onClick={toggleDropdown}>
         {selectedOption ? selectedOption[labelKey] : "Seleccionar"}
       </div>

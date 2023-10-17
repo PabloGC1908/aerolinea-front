@@ -21,8 +21,20 @@ const TablaBoletos = () => {
     setBoletos(formateoBoletoFechas)
   }
 
-  const deleteBoleto = async () => {
-    const response = await fetch(url.concat('/api/boletos'))
+  const deleteBoleto = async (id) => {
+    const response = await fetch(url.concat(`/api/boletos/${id}`), {
+      method: "DELETE"
+    })
+
+    if (response.status === 200) {
+      alert("Se elimino correctamente su boleto")
+    }
+  }
+
+  const eliminarBoleto = (id) => {
+    if (window.confirm("¿Desea eliminar su boleto?")){
+      deleteBoleto(id).then(r => {})
+    }
   }
 
   useEffect(() => {
@@ -51,7 +63,11 @@ const TablaBoletos = () => {
               <td>{boleto.fechaIda}</td>
               <td>{boleto.fechaCompra}</td>
               <td>{boleto.precio}</td>
-              <td>Reembolsar</td>
+              <td>
+                <button className={'delete-button'} onClick={() => eliminarBoleto(boleto.id)}>
+                  Reembolsar
+                </button>
+              </td>
             </tr>
           ))
         }
