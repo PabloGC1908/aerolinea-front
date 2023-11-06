@@ -49,8 +49,16 @@ const ModVueloPage = () => {
     }
   }
 
+  const url_method = () => {
+    if (idVuelo === undefined) {
+      return ''
+    } else {
+      return `/${idVuelo}`
+    }
+  }
+
   const postVuelo = async () => {
-    const response = await fetch(url.concat(`/api/vuelos/${idVuelo}`), {
+    const response = await fetch(url.concat(`/api/vuelos${url_method()}`), {
       headers: {
         "Content-Type": "application/json",
       },
