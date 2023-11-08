@@ -70,12 +70,14 @@ const ModVueloPage = () => {
       }),
     });
 
-    if (response.status === 200) {
-      alert("Vuelo actualizado correctamente");
-      navigate('/admin-vuelos')
-    } else {
-      alert("Error al actualizar vuelo")
+    if (response.status === 201) {
+      alert("Vuelo creado correctamente");
     }
+    if (response.status === 202) {
+      alert("Vuelo actualizado correctamente")
+    }
+
+    navigate('/admin-vuelos')
   };
 
   useEffect(() => {
@@ -96,8 +98,6 @@ const ModVueloPage = () => {
       });
     }
   }, [idVuelo]);
-
-  console.log(formData)
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
