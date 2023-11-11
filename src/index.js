@@ -13,6 +13,7 @@ import VueloDetailPage from "./pages/VueloDetailPage";
 import PagoPage from "./pages/PagoPage";
 import ModVueloPage from "./pages/ModVueloPage";
 import VuelosAdminPage from "./pages/VuelosAdminPage";
+import ReservasAdminPage from "./pages/ReservasAdminPage";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "/mod-vuelo/:idVuelo",
     element: <ModVueloPage/>
+  },
+  {
+    path: "/reservas",
+    element: <ReservasAdminPage />
   }
 ])
 

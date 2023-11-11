@@ -26,7 +26,7 @@ const AdminPage = () => {
         </div>
         <div>
           <button>
-            Estadisticas de vuelos
+            <Link to={'/reservas'}>Reservas vuelos</Link>
           </button>
         </div>
       </div>
