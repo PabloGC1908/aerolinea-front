@@ -1,8 +1,12 @@
+import Navbar from "../components/Navbar";
+import TablaReservas from "../components/TablaReservas";
+
 const ReservasAdminPage = () => {
   return (
-    <div>
-      Hola
-    </div>
+    <>
+      <Navbar />
+      <TablaReservas />
+    </>
   )
 }
 
